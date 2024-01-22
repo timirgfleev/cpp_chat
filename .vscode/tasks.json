@@ -6,7 +6,7 @@
             "label": "qmake_client",
             "command": "qmake",
             "args": [
-                "${workspaceFolder}/client/client.pro",
+                "${workspaceFolder}/client/qt6_client.pro",
                 "-o",
                 "${workspaceFolder}/client/build/Makefile"
             ],

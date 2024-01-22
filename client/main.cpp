@@ -1,40 +1,28 @@
+#include "mainwindow.h"
+
 #include <QApplication>
-#include <QVBoxLayout>
-#include <QPushButton>
-#include <QTextEdit>
-#include <QWidget>
-#include <QTcpSocket>
+#include <QLocale>
+#include <QTranslator>
 
-int main(int argc, char **argv)
+
+//design finite sta te machine
+//as to remake layout of the window
+//swithing them through different forms
+
+int main(int argc, char *argv[])
 {
-    QApplication app(argc, argv);
+    QApplication a(argc, argv);
 
-    QWidget window;
-    QVBoxLayout layout(&window);
-
-    QTextEdit chatHistory;
-    chatHistory.setReadOnly(true);
-    layout.addWidget(&chatHistory);
-
-    QTextEdit messageInput;
-    layout.addWidget(&messageInput);
-
-    QPushButton sendButton("Send");
-    layout.addWidget(&sendButton);
-
-    QTcpSocket socket;
-    socket.connectToHost("localhost", 1234);
-
-    QObject::connect(&socket, &QTcpSocket::readyRead, [&](){
-        chatHistory.append(socket.readAll());
-    });
-
-    QObject::connect(&sendButton, &QPushButton::clicked, [&](){
-        socket.write(messageInput.toPlainText().toUtf8());
-        messageInput.clear();
-    });
-
-    window.show();
-
-    return app.exec();
+    QTranslator translator;
+    const QStringList uiLanguages = QLocale::system().uiLanguages();
+    for (const QString &locale : uiLanguages) {
+        const QString baseName = "qt6_client_" + QLocale(locale).name();
+        if (translator.load(":/i18n/" + baseName)) {
+            a.installTranslator(&translator);
+            break;
+        }
+    }
+    MainWindow w;
+    w.show();
+    return a.exec();
 }
