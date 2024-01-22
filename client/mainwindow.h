@@ -6,7 +6,7 @@
 
 #include "page0_talk.h"
 
-#include <QTcpSocket>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,15 +22,19 @@ public:
 
 
 private slots:
-    void chat_send(const QString &text);
+    void chat_send(const QString &text); //take message from child
 
     void on_pushButton_clicked();
 
-    void receive_chat();
+public slots:
+    void receive_chat(const QString &text);
+
+signals:
+    void update_chat_history(const QString &text);
+    void send_message(const QString &text); //emit message from child
 
 private:
     Ui::MainWindow *ui;
     Page0_talk * screen;
-    QTcpSocket* socket;
 };
 #endif // MAINWINDOW_H

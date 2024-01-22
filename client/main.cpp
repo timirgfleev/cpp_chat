@@ -4,13 +4,16 @@
 #include <QLocale>
 #include <QTranslator>
 
+#include "connection.h"
 
-//design finite sta te machine
-//as to remake layout of the window
-//swithing them through different forms
+//make layout of the window
+//swithing widget through different forms
+
+
 
 int main(int argc, char *argv[])
 {
+
     QApplication a(argc, argv);
 
     QTranslator translator;
@@ -23,6 +26,13 @@ int main(int argc, char *argv[])
         }
     }
     MainWindow w;
+
+    Connection c;
+    c.connectToHost("localhost", 1234);
+
+    QObject::connect(&w, &MainWindow::send_message, &c, &Connection::sendMessage);
+    QObject::connect(&c, &Connection::messageReceived, &w, &MainWindow::receive_chat);
+
     w.show();
     return a.exec();
 }
