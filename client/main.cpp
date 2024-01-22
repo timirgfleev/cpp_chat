@@ -9,7 +9,7 @@
 //make layout of the window
 //swithing widget through different forms
 
-
+//
 
 int main(int argc, char *argv[])
 {
