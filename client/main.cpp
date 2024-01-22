@@ -3,7 +3,7 @@
 #include <QPushButton>
 #include <QTextEdit>
 #include <QWidget>
-//#include <QTcpSocket>
+#include <QTcpSocket>
 
 int main(int argc, char **argv)
 {
@@ -22,8 +22,15 @@ int main(int argc, char **argv)
     QPushButton sendButton("Send");
     layout.addWidget(&sendButton);
 
+    QTcpSocket socket;
+    socket.connectToHost("localhost", 1234);
+
+    QObject::connect(&socket, &QTcpSocket::readyRead, [&](){
+        chatHistory.append(socket.readAll());
+    });
+
     QObject::connect(&sendButton, &QPushButton::clicked, [&](){
-        chatHistory.append(messageInput.toPlainText());
+        socket.write(messageInput.toPlainText().toUtf8());
         messageInput.clear();
     });
 

@@ -14,10 +14,11 @@ int main()
 
         std::string data;
 
+        tcp::socket socket(io_service);
+        acceptor.accept(socket);
+
         for (;;)
         {
-            tcp::socket socket(io_service);
-            acceptor.accept(socket);
 
             // Read data from the client until '\n' is encountered
             boost::asio::streambuf buf;
@@ -25,7 +26,7 @@ int main()
 
             // Convert data to std::string
             // Convert data to std::string
-            data = boost::asio::buffer_cast<const char *>(buf.data());
+            data += boost::asio::buffer_cast<const char *>(buf.data());
 
             std::cout << "Received: " << data << std::endl;
 
