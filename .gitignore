@@ -1,0 +1,12 @@
+# vscode settings
+# .vscode
+
+# build files
+client/build
+
+server/build
+
+# we are here
+gitignore
+
+README.md
