@@ -1,0 +1,74 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "qmake_client",
+            "command": "qmake",
+            "args": [
+                "${workspaceFolder}/client/client.pro",
+                "-o",
+                "${workspaceFolder}/client/build/Makefile"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "type": "shell",
+            "label": "make_client",
+            "command": "/usr/bin/make",
+            "args": [
+                "-C",
+                "${workspaceFolder}/client/build"
+            ],
+            "dependsOn": "qmake_client",
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "type": "shell",
+            "label": "cmake_server",
+            "command": "cmake",
+            "args": [
+                "-S",
+                "${workspaceFolder}/server",
+                "-B",
+                "${workspaceFolder}/server/build"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "type": "shell",
+            "label": "make_server",
+            "command": "/usr/bin/make",
+            "args": [
+                "-C",
+                "${workspaceFolder}/server/build"
+            ],
+            "dependsOn": "cmake_server",
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        }
+    ]
+}
