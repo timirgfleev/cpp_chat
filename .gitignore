@@ -10,3 +10,5 @@ server/build
 gitignore
 
 # README.md
+
+./json_api.md

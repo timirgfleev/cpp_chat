@@ -1,23 +1,47 @@
+#pragma once
+
 #include <boost/asio.hpp>
 #include <thread>
 #include <iostream>
 #include <string>
 
-#pragma once
+#include <nlohmann/json.hpp>
 
 using boost::asio::ip::tcp;
 
+void handle_request_message(const std::string &data)
+{
+    std::cout << "Message " << data << std::endl;
+};
+
 std::string handle_string(std::string &data)
 {
-    std::cout << "Received: " << data << std::endl;
-    return "Hello from server!\n" + data;
+    // Remove the newline character at the end of the data
+    if (!data.empty() && data[data.length() - 1] == '\n')
+    {
+        data.erase(data.length() - 1);
+    }
+
+    nlohmann::json jsonData = nlohmann::json::parse(data);
+
+    std::string type = jsonData["action"];
+
+    if (type == "message")
+    {
+        std::string message = jsonData["message"];
+        handle_request_message(message);
+    }
+
+    std::string response = jsonData.dump();
+
+    return response;
 }
 
 void handle_client(tcp::socket socket)
 {
     try
     {
-        
+
         for (;;)
         {
             // Read data from the client until '\n' is encountered
@@ -25,7 +49,7 @@ void handle_client(tcp::socket socket)
             boost::asio::read_until(socket, buf, '\n');
 
             // Make a str from buffer.
-            std::string data = boost::asio::buffer_cast<const char*>(buf.data());
+            std::string data = boost::asio::buffer_cast<const char *>(buf.data());
 
             // Craft a responce
             std::string message = handle_string(data);

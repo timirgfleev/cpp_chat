@@ -1,5 +1,8 @@
 #include "connection.h"
 
+#include <QJsonDocument>
+#include <QJsonObject>
+
 Connection::Connection(QObject *parent)
     : QObject(parent)
     , socket(new QTcpSocket(this))
@@ -18,7 +21,19 @@ void Connection::connectToHost(const QString &hostName, quint16 port)
 
 void Connection::sendMessage(const QString &message)
 {
-    socket->write(message.toUtf8());
+    // Create a QJsonObject
+    QJsonObject json;
+    json["action"] = "message";
+    json["message"] = message;
+
+    // Convert the QJsonObject to a QJsonDocument
+    QJsonDocument jsonDoc(json);
+
+    // Convert the QJsonDocument to a QByteArray
+    QByteArray jsonData = jsonDoc.toJson();
+
+    // Send the JSON data
+    socket->write(jsonData);
 }
 
 
