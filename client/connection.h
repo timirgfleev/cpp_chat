@@ -16,10 +16,12 @@ public:
 signals:
     void messageReceived(const QString &message);
 public slots:
+    void getMessages();
     void sendMessage(const QString &message);
 private slots:
     void onReadyRead();
-
+protected:
+    void sendJson(QJsonObject& to_send);
 private:
     QTcpSocket *socket;
 };

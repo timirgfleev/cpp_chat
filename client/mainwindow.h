@@ -26,10 +26,12 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void get_chat_history();
 public slots:
     void receive_chat(const QString &text);
 
 signals:
+    void request_chat_history();
     void update_chat_history(const QString &text);
     void send_message(const QString &text); //emit message from child
 

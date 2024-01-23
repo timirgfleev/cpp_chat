@@ -23,6 +23,12 @@ void Page0_talk::on_sendButton_clicked()
 
 void Page0_talk::receive_chat(const QString &text)
 {
-    ui->textChat->append(text);
+    ui->textChat->setText(text);
+}
+
+
+void Page0_talk::on_updateButton_clicked()
+{
+    emit updateButton_clicked();
 }
 

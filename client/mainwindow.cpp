@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     connect(this, &MainWindow::update_chat_history, screen, &Page0_talk::receive_chat);
+    connect(screen, &Page0_talk::updateButton_clicked, this, &MainWindow::get_chat_history);
     connect(screen, &Page0_talk::sendButtonClicked, this, &MainWindow::chat_send);
 }
 
@@ -52,3 +53,7 @@ void MainWindow::receive_chat(const QString &text)
 
     emit update_chat_history(text);
 }
+
+void MainWindow::get_chat_history(){
+    emit request_chat_history();
+};

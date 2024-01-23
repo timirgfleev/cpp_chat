@@ -17,9 +17,12 @@ public:
 
 signals:
     void sendButtonClicked(const QString &text);
+    void updateButton_clicked();
 
 private slots:
     void on_sendButton_clicked();
+    void on_updateButton_clicked();
+
 public slots:
     void receive_chat(const QString &text);
 

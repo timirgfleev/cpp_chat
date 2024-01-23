@@ -6,11 +6,6 @@
 
 #include "connection.h"
 
-//make layout of the window
-//swithing widget through different forms
-
-
-
 int main(int argc, char *argv[])
 {
 
@@ -31,7 +26,9 @@ int main(int argc, char *argv[])
     c.connectToHost("localhost", 1234);
 
     QObject::connect(&w, &MainWindow::send_message, &c, &Connection::sendMessage);
+    QObject::connect(&w, &MainWindow::request_chat_history, &c, &Connection::getMessages);
     QObject::connect(&c, &Connection::messageReceived, &w, &MainWindow::receive_chat);
+
 
     w.show();
     return a.exec();
