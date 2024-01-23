@@ -6,6 +6,9 @@
 
 #include "connection.h"
 
+
+#include <QTimer>
+
 int main(int argc, char *argv[])
 {
 
@@ -29,6 +32,9 @@ int main(int argc, char *argv[])
     QObject::connect(&w, &MainWindow::request_chat_history, &c, &Connection::getMessages);
     QObject::connect(&c, &Connection::messageReceived, &w, &MainWindow::receive_chat);
 
+    QTimer *timer = new QTimer(nullptr);
+    QObject::connect(timer, &QTimer::timeout, &c, &Connection::getMessages);
+    timer->start(1000);
 
     w.show();
     return a.exec();
