@@ -1,5 +1,5 @@
 #pragma once
-#include <vector>
+#include <list>
 #include <string>
 #include <nlohmann/json.hpp>
 
@@ -20,15 +20,19 @@ public:
     explicit Chat(){};
     ~Chat(){};
 
-    void add_message(Message message);
-    void add_user(int user_id);
+    void add_message(Message message){
+        messages.push_back(message);
+    };
+    void add_user(int user_id){
+        users.push_back(user_id);
+    };
 
-    std::vector<Message> get_messages(){
+    std::list<Message> get_messages(){
         return messages;
     }
 
-    std::vector<Message> messages;
-    std::vector<int> users;
+    std::list<Message> messages;
+    std::list<int> users;
 private:
     int id;
 };
@@ -37,6 +41,10 @@ class ChatHandler{
 public:
     explicit ChatHandler(){};
     ~ChatHandler(){};
+
+    void add_chat(Chat chat){
+        chats.push_back(chat);
+    }
 
     void handle_message(const Message& message){
         chats.at(message.id).add_message(message);

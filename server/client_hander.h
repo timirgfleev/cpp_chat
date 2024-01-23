@@ -9,6 +9,9 @@
 
 using boost::asio::ip::tcp;
 
+#include "chat.h"
+
+static ChatHandler chatHandler;
 
 
 void handle_request_message(const std::string &data)
