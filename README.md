@@ -2,8 +2,8 @@
 
 Project is on minimal working state right now;
 supported features:
-    server handles multiple clients
-    clients can communicate in single chat
+- server handles multiple clients;
+- clients can communicate in single chat;
      
 
 ## Client info:
@@ -12,7 +12,7 @@ Made on c++/qt6, connects using QTcpSocket
 
 ## Server info:
 
-Made on c++/boost::asio
+Made on c++/boost::asio tcp sockets
 
 ## interaction model:
 
