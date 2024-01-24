@@ -1,6 +1,10 @@
 ## This is client and server for chat
 
-Project is on minimal working state right now
+Project is on minimal working state right now;
+supported features:
+    server handles multiple clients
+    clients can communicate in single chat
+     
 
 ## Client info:
 
@@ -9,6 +13,10 @@ Made on c++/qt6, connects using QTcpSocket
 ## Server info:
 
 Made on c++/boost::asio
+
+## interaction model:
+
+client and server can communicate with sending JSON objects to each other
 
 ## Configuration:
 
